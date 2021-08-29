@@ -31,5 +31,5 @@ requires Python3.8 or newer
 
 ```
 git clone https://github.com/davekch/musicguessinggame.git
-pip install pydub
+pip install pydub eyed3
 ```

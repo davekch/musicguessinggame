@@ -1,5 +1,6 @@
 from pydub import AudioSegment
 from pydub.playback import play
+import eyed3
 import random
 import os
 from argparse import ArgumentParser
@@ -18,11 +19,16 @@ def guessinggame(folder, duration, attempts):
         song = random.choice(songs)
         songs.remove(song)
         snippet = get_random_snippet_from_file(os.path.join(folder, song), duration)
+        metadata = eyed3.load(os.path.join(folder, song))
         for i in range(attempts):
             input(f"press <Enter> to listen to snippet ({attempts-i} attempt(s) left)")
             play(snippet)
         input("press <Enter> to see solution")
         print(f"The song was {song}!")
+        if metadata:
+            print(f"Title: {metadata.tag.title}")
+            print(f"Artist: {metadata.tag.artist}")
+            print(f"Album: {metadata.tag.album}")
         print()
     print("That's it! You made a guess on all the songs")
 
